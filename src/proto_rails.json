@@ -1,0 +1,65 @@
+[
+    {
+        "img": "rails/tile0.png",
+        "name": "tile0",
+        "n": "AAA",
+        "e": "AAA",
+        "s": "AAA",
+        "w": "AAA",
+        "orientations": 1
+    },
+    {
+        "img": "rails/tile1.png",
+        "name": "tile1",
+        "n": "ABA",
+        "e": "ABA",
+        "s": "AAA",
+        "w": "ABA",
+        "orientations": 4
+    },
+    {
+        "img": "rails/tile2.png",
+        "name": "tile2",
+        "n": "BAA",
+        "e": "AAB",
+        "s": "AAA",
+        "w": "AAA",
+        "orientations": 4
+    },
+    {
+        "img": "rails/tile3.png",
+        "name": "tile3",
+        "n": "BAA",
+        "e": "AAA",
+        "s": "AAB",
+        "w": "AAA",
+        "orientations": 4
+    },
+    {
+        "img": "rails/tile4.png",
+        "name": "tile4",
+        "n": "ABA",
+        "e": "ABA",
+        "s": "AAA",
+        "w": "AAA",
+        "orientations": 4
+    },
+    {
+        "img": "rails/tile5.png",
+        "name": "tile5",
+        "n": "AAA",
+        "e": "ABA",
+        "s": "AAA",
+        "w": "ABA",
+        "orientations": 2
+    },
+    {
+        "img": "rails/tile6.png",
+        "name": "tile6",
+        "n": "ABA",
+        "e": "ABA",
+        "s": "ABA",
+        "w": "ABA",
+        "orientations": 1
+    }
+]
