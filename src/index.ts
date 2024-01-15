@@ -63,10 +63,6 @@ const sketch = (p: p5) => {
         wfc = new WFC(p, DIMENSION, TILES)
     }
 
-    p.mousePressed = () => {
-        p.redraw()
-    }
-
     p.draw = () => {
         p.background(0)
 
@@ -127,6 +123,24 @@ const sketch = (p: p5) => {
                 p.text(cell.possibleTiles.length, cell.x * width + width / 2, cell.y * height + height / 2)
             }
         }
+
+        let resetButton = p.createButton('Last state')
+        resetButton.position(19, 19)
+        resetButton.mousePressed(() => {
+            console.log('Last')
+            // Reset the cells
+            for (let cell of wfc.cells) {
+                cell.reset()
+            }
+
+            p.redraw()
+        })
+
+        let redrawButton = p.createButton('Continue')
+        redrawButton.position(19, 49)
+        redrawButton.mousePressed(() => {
+            p.redraw()
+        })
 
         p.noLoop()
     }
