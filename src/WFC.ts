@@ -7,14 +7,28 @@ class WFC {
 
     cells: Cell[] = []
 
+    dimension: number
+
+    tiles: Tile[]
+
     constructor(p: p5, dimension: number, tiles: Tile[]) {
         this.p = p
 
         this.p.randomSeed(1)
 
-        for (let i = 0; i < dimension; i++) {
-            for (let j = 0; j < dimension; j++) {
-                let cell = new Cell(i, j, tiles)
+        this.dimension = dimension
+
+        this.tiles = tiles
+
+        this.init()
+    }
+
+    init() {
+        this.cells = []
+
+        for (let i = 0; i < this.dimension; i++) {
+            for (let j = 0; j < this.dimension; j++) {
+                let cell = new Cell(i, j, this.tiles)
                 this.cells.push(cell)
             }
         }
@@ -22,11 +36,18 @@ class WFC {
 
     iterate() {
         const cell = this.getCellWithMinimumTiles()
-        // choose center cell
-        // const cell = this.cells[Math.floor(this.cells.length / 2)]
+        
+        if (!cell || cell.possibleTiles.length === 0) {
+            this.cells.forEach((cell) => cell.reset())
+            this.iterate()
+            return 
+        }
+
+        this.cells.forEach((cell) => cell.save())
 
         if (cell) {
             const tile = cell.possibleTiles[Math.floor(this.p.random(cell.possibleTiles.length))]
+
             cell.collapse(tile)
             this.propagate(cell)
         }
@@ -35,15 +56,13 @@ class WFC {
     propagate(cell: Cell) {
         const neighborCells = this.getNeighborCells(cell)
 
-        // console.log(neighborCells)
-
         for (const neighborCell of neighborCells) {
             if (neighborCell.cell.collapsed) {
                 continue
             }
 
             const finalPossibleTiles: Tile[] = []
-            
+
             for (const tile of cell.possibleTiles) {
                 if (!tile) {
                     console.log(cell)
@@ -54,8 +73,8 @@ class WFC {
                     }
                 }
             }
-            
-            neighborCell.cell.possibleTiles = finalPossibleTiles
+
+            neighborCell.cell.setPossibleTiles(finalPossibleTiles)
         }
     }
 
