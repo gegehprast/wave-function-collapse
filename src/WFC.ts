@@ -11,10 +11,14 @@ class WFC {
 
     tiles: Tile[]
 
+    lastResetNum?: number
+
+    justResetTick: number = 0
+
     constructor(p: p5, dimension: number, tiles: Tile[]) {
         this.p = p
 
-        this.p.randomSeed(1)
+        this.p.randomSeed(7)
 
         this.dimension = dimension
 
@@ -36,21 +40,41 @@ class WFC {
 
     iterate() {
         const cell = this.getCellWithMinimumTiles()
+
+        if (!cell) {
+            return
+        }
         
-        if (!cell || cell.possibleTiles.length === 0) {
-            this.cells.forEach((cell) => cell.reset())
-            this.iterate()
+        if (cell.possibleTiles.length === 0) {
+            if (this.lastResetNum === undefined) {
+                this.lastResetNum = 1
+            } else {
+                this.lastResetNum++
+
+                if (this.lastResetNum > 5) {
+                    this.lastResetNum = 10
+                }
+            }
+
+            this.cells.forEach((cell) => cell.reset(this.lastResetNum))
+
+            this.justResetTick = 5
+
             return 
+        }
+
+        if (this.justResetTick === 0) {
+            this.lastResetNum = undefined
+        } else {
+            this.justResetTick--
         }
 
         this.cells.forEach((cell) => cell.save())
 
-        if (cell) {
-            const tile = cell.possibleTiles[Math.floor(this.p.random(cell.possibleTiles.length))]
+        const tile = cell.possibleTiles[Math.floor(this.p.random(cell.possibleTiles.length))]
 
-            cell.collapse(tile)
-            this.propagate(cell)
-        }
+        cell.collapse(tile)
+        this.propagate(cell)
     }
 
     propagate(cell: Cell) {
