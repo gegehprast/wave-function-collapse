@@ -3,7 +3,7 @@ import proto_rails from './proto_rails.json'
 import Tile from './Tile'
 import WFC from './WFC'
 
-const DIMENSION = 5
+const DIMENSION = 25
 const DIMENSION2 = 5
 const TILES: Tile[] = []
 const IMAGES: any[] = []
@@ -81,46 +81,46 @@ const sketch = (p: p5) => {
             if (cell.collapsed && cell.tile) {
                 p.image(cell.tile.img, cell.x * width, cell.y * height, width, height)
 
-                // Set the color and weight of the border
-                p.stroke(0) // White color
+                // // Set the color and weight of the border
+                // p.stroke(0) // White color
 
-                // Draw the border
-                p.noFill() // Ensure that the rectangle is not filled
-                p.rect(cell.x * width, cell.y * height, width, height)
+                // // Draw the border
+                // p.noFill() // Ensure that the rectangle is not filled
+                // p.rect(cell.x * width, cell.y * height, width, height)
             } else {
-                // draw all possible tiles
-                const iWidth = width / DIMENSION2
-                const iHeight = height / DIMENSION2
+                // // draw all possible tiles
+                // const iWidth = width / DIMENSION2
+                // const iHeight = height / DIMENSION2
                 
-                for (let j = 0; j < cell.possibleTiles.length; j++) {
-                    let tile = cell.possibleTiles[j]
+                // for (let j = 0; j < cell.possibleTiles.length; j++) {
+                //     let tile = cell.possibleTiles[j]
 
-                    if (!tile) {
-                        continue
-                    }
+                //     if (!tile) {
+                //         continue
+                //     }
 
-                    p.image(
-                        tile.img,
-                        cell.x * width + iWidth * (j % DIMENSION2),
-                        cell.y * height + iHeight * Math.floor(j / DIMENSION2),
-                        iWidth,
-                        iHeight
-                    )
+                //     p.image(
+                //         tile.img,
+                //         cell.x * width + iWidth * (j % DIMENSION2),
+                //         cell.y * height + iHeight * Math.floor(j / DIMENSION2),
+                //         iWidth,
+                //         iHeight
+                //     )
 
-                    // Set the color and weight of the border
-                    p.stroke('#f00000') // White color
+                //     // Set the color and weight of the border
+                //     p.stroke('#f00000') // White color
 
-                    // Draw the border
-                    p.noFill() // Ensure that the rectangle is not filled
-                    p.rect(cell.x * width + iWidth * (j % DIMENSION2), cell.y * height + iHeight * Math.floor(j / DIMENSION2), iWidth, iHeight)
-                }
+                //     // Draw the border
+                //     p.noFill() // Ensure that the rectangle is not filled
+                //     p.rect(cell.x * width + iWidth * (j % DIMENSION2), cell.y * height + iHeight * Math.floor(j / DIMENSION2), iWidth, iHeight)
+                // }
 
-                // draw the number of possible tiles
-                // in the middle of the cell
-                p.textSize(16)
-                p.fill(255)
-                p.textAlign(p.CENTER, p.CENTER)
-                p.text(cell.possibleTiles.length, cell.x * width + width / 2, cell.y * height + height / 2)
+                // // draw the number of possible tiles
+                // // in the middle of the cell
+                // p.textSize(16)
+                // p.fill(255)
+                // p.textAlign(p.CENTER, p.CENTER)
+                // p.text(cell.possibleTiles.length, cell.x * width + width / 2, cell.y * height + height / 2)
             }
         }
 
@@ -130,7 +130,7 @@ const sketch = (p: p5) => {
             console.log('Last')
             // Reset the cells
             for (let cell of wfc.cells) {
-                cell.reset()
+                cell.reset(4)
             }
 
             p.redraw()
@@ -142,7 +142,7 @@ const sketch = (p: p5) => {
             p.redraw()
         })
 
-        p.noLoop()
+        // p.noLoop()
     }
 }
 
